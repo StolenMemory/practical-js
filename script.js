@@ -1,5 +1,19 @@
-let todos = ["item1", "item2", "item3", "item4"] //array that can display any amount of data
-console.log ("My todos: ", todos) //easy way to display things into console (in browser's console)
-todos.push ("item5") // this adds a new item to the end of array, pop can delete it (deletes last item)
-todos[0] = "item1updated" // you can access an item in array with its index in [], starts at 0 with first item
-todos.splice (2, 1) // splice can access desired item in an array and delete it.. first paramater is index number of the item, second paramater is the number of items we need removed
+let todos = ["item1", "item2", "item3", "item4"]
+function displayTodos () {
+    console.log ("My todos: ", todos);
+} // this function displays todos without needing to console.log all of the time
+
+function addTodo (todo) {
+    todos.push (todo);
+    displayTodos();
+} // this add a todo with name given to it, also displays full list of todos immediately afterwards
+
+function editTodo (position, newTodo) {
+    todos[position] = newTodo;
+    displayTodos();
+} // this function edits todo in the array according to position given and then changes it to new value with second parameter
+
+function deleteTodo (position) {
+    todos.splice (position, 1);
+    displayTodos();
+} // this functions delete todo at the given position
