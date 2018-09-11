@@ -54,4 +54,15 @@ let todoList = {
         this.displayTodos();
     } // this method toggles all objects completed or vice versa
 }; // this is an object which has property that is set to an array of items, it's a good thing to be programming with OOP in mind (object oriented programming) = cleaner code
-    // it also has a few methods which execute things and then always display the list for clarity and practicality
+   // it also has a few methods which execute things and then always display the list for clarity and practicality
+
+   let displayTodosButton = document.getElementById ("displayTodosButton") //these adds variables for buttons (by button ID declared in .html) so we can work with them
+   let toggleAllButton = document.getElementById ("toggleAllButton")
+
+   displayTodosButton.addEventListener ("click", function() { // these will listen for a click on a button and then run the appropriate function
+    todoList.displayTodos();
+   });
+
+   toggleAllButton.addEventListener ("click", function() {
+    todoList.toggleAll();
+   });
