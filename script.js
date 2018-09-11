@@ -19,20 +19,18 @@ let todoList = {
     toggleAll: function () {
         let totalTodos = this.todos.length;
         let completedTodos = 0;
-        for (let i = 0; i < totalTodos; i++) {
-            if (this.todos[i].completed === true) {
+        this.todos.forEach(function (todo) {
+            if (todo.completed === true) {
                 completedTodos++;
             }
-        } // this for loop go through whole array to find todos with completed status, and if so, adds them to count
-        if (completedTodos === totalTodos) {
-            for (let i = 0; i < totalTodos; i++) {
-                this.todos[i].completed = false;
+        }); // this for loop goes through whole array to find todos with completed status, and if so, adds them to count
+        this.todos.forEach(function (todo) {
+            if (completedTodos === totalTodos) {
+                todo.completed = false; // if all todos on list are completed, this marks them all as opposite
+            } else {
+                todo.completed = true; // if at least one item is not completed, it marks all as true
             }
-        } else { // if all todos on list are completed, this marks them all as opposite
-            for (let i = 0; i < totalTodos; i++) {
-                this.todos[i].completed = true;
-            }
-        } // if at least one item is not completed, it marks all as true
+        });
     } // this method toggles all objects completed or vice versa
 }; // this is an object which has property that is set to an array of items, it's a good thing to be programming with OOP in mind (object oriented programming) = cleaner code
 // it also has a few methods which execute things and then always display the list for clarity and practicality
@@ -72,20 +70,19 @@ let userView = {
     displayTodos: function () {
         let todosUl = document.querySelector("ul");
         todosUl.innerHTML = "";
-        for (let i = 0; i < todoList.todos.length; i++) {
+        todoList.todos.forEach(function (todo, position) {
             let todoLi = document.createElement("li");
-            let todo = todoList.todos[i];
             let todoTextWithStatus = "";
             if (todo.completed === true) {
                 todoTextWithStatus = "(X) " + todo.todoText
             } else {
                 todoTextWithStatus = "( ) " + todo.todoText
             }
-            todoLi.id = i;
+            todoLi.id = position;
             todoLi.textContent = todoTextWithStatus;
             todoLi.appendChild(this.createDeleteButton());
             todosUl.appendChild(todoLi);
-        }
+        }, this);
     }, // this method looks for unordered list in .html and then creates a list item in it for each item in our todo list and shows its name and status
     createDeleteButton: function () {
         let deleteButton = document.createElement("button");
@@ -102,7 +99,9 @@ let userView = {
             }
         });
     } // we have set up method for event listeners in general.. it listens to clicks on whole ul element and then decides based on the event it recorded
-      // (when clicked on element with class delete - it will run the delete method)
+    // (when clicked on element with class delete - it will run the delete method)
 }; // this object handles output for user to view, we no longer need to have any looks into console, so we deleted our previous viewing functionalities that outputed to console
 
 userView.setUpEventListeners(); // this just runs the function we need
+
+// in version 0.11 we just refactored our code, got rid of all for loops and used forEach instead of them on our arrays
