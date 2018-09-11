@@ -33,6 +33,25 @@ let todoList = {
         let todo = this.todos[position];
         todo.completed != todo.completed;
         this.displayTodos();
-    } // this method takes a position of todo we want, and then flips the property of it (completed) to opposite of what it currently is
+    }, // this method takes a position of todo we want, and then flips the property of it (completed) to opposite of what it currently is
+    toggleAll: function () {
+        let totalTodos = this.todos.length;
+        let completedTodos = 0;
+        for (let i = 0; i < totalTodos; i++) {
+            if (this.todos[i].completed === true) {
+                completedTodos++;
+            }
+        } // this for loop go through whole array to find todos with completed status, and if so, adds them to count
+        if (completedTodos === totalTodos) {
+            for (let i = 0; i < totalTodos; i++) {
+                this.todos[i].completed = false;
+            }
+        } else { // if all todos on list are completed, this marks them all as opposite
+            for (let i = 0; i < totalTodos; i++) {
+                this.todos[i].completed = true;
+            }
+        } // if at least one item is not completed, it marks all as true
+        this.displayTodos();
+    } // this method toggles all objects completed or vice versa
 }; // this is an object which has property that is set to an array of items, it's a good thing to be programming with OOP in mind (object oriented programming) = cleaner code
     // it also has a few methods which execute things and then always display the list for clarity and practicality
